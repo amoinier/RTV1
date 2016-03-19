@@ -6,81 +6,92 @@
 /*   By: amoinier <amoinier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/22 14:40:48 by amoinier          #+#    #+#             */
-/*   Updated: 2016/03/18 15:45:12 by amoinier         ###   ########.fr       */
+/*   Updated: 2016/03/19 19:46:08 by amoinier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-static	t_point		***ft_realloc(t_point ***p, int nline)
+char	**ft_dstrcpy(char **str, int i, char *line)
 {
-	t_point	***tmp;
-	int		i;
-
-	i = 0;
-	if (!(tmp = (t_point ***)malloc(sizeof(tmp) * (nline + 1))))
-		error("error : ft_realloc");
-	while (i != nline)
-	{
-		tmp[i] = p[i];
-		i++;
-	}
-	free(p);
-	p = NULL;
-	p = tmp;
-	return (p);
-}
-
-void				verif_map(t_point ***point)
-{
-	int		x;
-	int		y;
+	char	**str2;
+	int	x;
 
 	x = 0;
-	while (x < point[point[0][0]->sizeline - 1][0]->sizecol)
+	if (!(str2 = (char **)malloc(sizeof(str2) * (i + 1))))
+		return (NULL);
+	while (x < i)
 	{
-		if (point[point[0][0]->sizeline - 1][x]->z != 1 &&
-		point[point[0][0]->sizeline - 1][x]->z != 9)
-			error("error : no wall");
+		str2[x] = ft_strdup(str[x]);
 		x++;
 	}
-	y = 0;
-	while (y < point[0][0]->sizeline)
+	str2[x] = ft_strdup(line);
+	return (str2);
+}
+
+int			count(char **str)
+{
+	int	i;
+	int	j;
+
+	j = 0;
+	i = 0;
+	while (str[j])
 	{
-		if (point[y][point[y][0]->sizecol - 1]->z != 1 &&
-		point[y][point[y][0]->sizecol - 1]->z != 9)
-			error("error : no wall");
-		if (point[y][0]->sizecol != point[0][0]->sizecol)
-			error("error : not a rectangle");
-		y++;
+		if (ft_strstr(str[j], "object"))
+			i++;
+		j++;
+	}
+	return (i);
+}
+
+float		ft_search(char *s, char *sch)
+{
+	int	i;
+
+	i = (ft_strlen(s) - ft_strlen(ft_strstr(s, sch))) + ft_strlen(sch) + 1;
+	return (1);
+}
+
+void		edit_fig(t_fig **fig, char	**str)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < count(str))
+	{
+		j = 0;
+		while (str[j])
+		{
+			if (ft_strstr(str[j], "object"))
+				fig[j]->obj = ft_search(str[j], "object");
+			j++;
+		}
 	}
 }
 
-t_point				***ft_createstruct(t_env *init, char *av)
+t_fig	**ft_createstruct(t_env *init, char *av)
 {
-	t_point	***point;
-	int		fd;
-	int		i;
-	int		ret;
+	t_fig	**fig;
 	char	*line;
+	char	**str;
+	int		i;
+	int		fd;
+	int		ret;
 
 	i = 0;
-	init->name = av;
-	if (!(point = (t_point ***)malloc(sizeof(point))))
-		error("error : ft_createstruct");
-	if ((fd = open(av, O_RDONLY)) == -1)
-		error("error : Bad fd");
-	while ((ret = get_next_line(fd, &line)) > 0)
+	if ((fd = open(av, O_RDONLY)))
+		error("error : bad fd");
+	str = NULL;
+	while ((ret = get_next_line(fd, &line)))
 	{
-		point[i] = init_point(init, line, i);
-		point = ft_realloc(point, i + 1);
-		free(line);
+		ft_dstrcpy(str, i, line);
 		i++;
 	}
-	close(fd);
-	if (ret != 0 || i == 0)
-		error("error : ret != 0 || i == 0");
-	free(line);
-	point[0][0]->sizeline = i;
-	return (point);
+	if (!(fig = ((t_fig **)malloc(sizeof(fig) * (count(str) + 1)))))
+		error("error : malloc fig");
+	init->height *= 1;
+	edit_fig(fig, str);
+	return (fig);
 }

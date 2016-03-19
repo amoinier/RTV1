@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wolf.c                                             :+:      :+:    :+:   */
+/*   rtv1.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amoinier <amoinier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/05 19:09:53 by amoinier          #+#    #+#             */
-/*   Updated: 2016/03/18 17:27:42 by amoinier         ###   ########.fr       */
+/*   Updated: 2016/03/19 19:47:11 by amoinier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,7 @@ static	void	ft_initenv(t_env *init, char *av)
 	init->width = 1280;
 	init->height = 800;
 	init->name = av;
-	init->point = ft_createstruct(init, av);
-	verif_map(init->point);
+	init->fig = ft_createstruct(init, av);
 }
 
 void			mlx_var(t_env *init, char *av)
@@ -55,7 +54,6 @@ int				main(int ac, char **av)
 
 	if (ac == 2)
 	{
-		av[0][0] = '.';
 		if (!(init = (t_env *)malloc(sizeof(*init))))
 			error("error : main");
 		mlx_var(init, av[1]);

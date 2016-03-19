@@ -6,7 +6,7 @@
 /*   By: amoinier <amoinier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/05 19:10:31 by amoinier          #+#    #+#             */
-/*   Updated: 2016/03/18 15:45:36 by amoinier         ###   ########.fr       */
+/*   Updated: 2016/03/19 16:29:46 by amoinier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,13 @@
 # define RAD 0.0174532925
 # define PI 3.14159265359
 
-typedef struct	s_point
+typedef struct	s_fig
 {
-	int			x;
-	int			y;
-	int			z;
-	int			sizeline;
-	int			sizecol;
-}				t_point;
+	char		obj;
+	float		size;
+	float		ray;
+	int			color;
+}				t_fig;
 
 typedef	struct	s_img
 {
@@ -44,10 +43,14 @@ typedef	struct	s_env
 	int			width;
 	int			height;
 
+	float		camx;
+	float		camy;
+	float		camz;
+
 	char		*name;
 
 	t_img		*img;
-	t_point		***point;
+	t_fig		**fig;
 }				t_env;
 
 int				mouse_hook(int x, int y, t_env *init);
@@ -63,9 +66,7 @@ void			pixel_put_image(t_env *init, int x, int y, int color);
 void			ft_clear_img(t_env *init);
 
 int				ft_countcara(char *str);
-t_point			***ft_createstruct(t_env *init, char *av);
-t_point			**init_point(t_env *init, char *line, int j);
-void			verif_map(t_point ***point);
+t_fig			**ft_createstruct(t_env *init, char *av);
 
 int				error(char *s);
 

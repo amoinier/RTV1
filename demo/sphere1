@@ -1,0 +1,11 @@
+##SCENE
+name sphere1;
+camera 0.0,0.0,0.0;
+sizefen 1080,720;
+
+##OBJECTS
+object sphere;
+origine 0.0,0.0,0.0;
+ray 50.0;
+color 0xfffff;
+##END
