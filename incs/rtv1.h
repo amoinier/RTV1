@@ -6,7 +6,7 @@
 /*   By: amoinier <amoinier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/05 19:10:31 by amoinier          #+#    #+#             */
-/*   Updated: 2016/03/19 16:29:46 by amoinier         ###   ########.fr       */
+/*   Updated: 2016/03/21 16:54:00 by amoinier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ typedef	struct	s_env
 
 	char		*name;
 
+	int			nbline;
+
 	t_img		*img;
 	t_fig		**fig;
 }				t_env;
@@ -67,6 +69,8 @@ void			ft_clear_img(t_env *init);
 
 int				ft_countcara(char *str);
 t_fig			**ft_createstruct(t_env *init, char *av);
+
+float			ft_atof(char *s);
 
 int				error(char *s);
 

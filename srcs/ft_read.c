@@ -6,7 +6,7 @@
 /*   By: amoinier <amoinier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/22 14:40:48 by amoinier          #+#    #+#             */
-/*   Updated: 2016/03/19 19:46:08 by amoinier         ###   ########.fr       */
+/*   Updated: 2016/03/21 17:56:35 by amoinier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,45 +29,56 @@ char	**ft_dstrcpy(char **str, int i, char *line)
 	return (str2);
 }
 
-int			count(char **str)
+int			count(char **str, int i)
 {
-	int	i;
+	int	k;
 	int	j;
 
 	j = 0;
-	i = 0;
-	while (str[j])
+	k = 0;
+	while (j < i)
 	{
 		if (ft_strstr(str[j], "object"))
-			i++;
+			k++;
 		j++;
 	}
-	return (i);
+	return (k);
 }
 
-float		ft_search(char *s, char *sch)
+int		ft_search(char *s, char *sch)
 {
 	int	i;
 
 	i = (ft_strlen(s) - ft_strlen(ft_strstr(s, sch))) + ft_strlen(sch) + 1;
-	return (1);
+	return (i);
 }
 
-void		edit_fig(t_fig **fig, char	**str)
+t_fig		*init_fig(void)
+{
+	t_fig	*fig;
+
+	if (!(fig = (t_fig *)malloc(sizeof(*fig))))
+		error("error malloc elem fig");
+	return (fig);
+}
+
+void		edit_fig(t_env *init, t_fig **fig, char	**str)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	while (i < count(str))
+	while (i < count(str, init->nbline))
 	{
+		fig[i] = init_fig();
 		j = 0;
 		while (str[j])
 		{
-			if (ft_strstr(str[j], "object"))
-				fig[j]->obj = ft_search(str[j], "object");
+			ft_strstr(str[j], "name");
+			//init->name = ft_strdup(&str[j][ft_search(str[j], "name")]);
 			j++;
 		}
+		i++;
 	}
 }
 
@@ -81,17 +92,18 @@ t_fig	**ft_createstruct(t_env *init, char *av)
 	int		ret;
 
 	i = 0;
-	if ((fd = open(av, O_RDONLY)))
+	if ((fd = open(av, O_RDONLY)) == -1)
 		error("error : bad fd");
-	str = NULL;
-	while ((ret = get_next_line(fd, &line)))
+	if (!(str = (char **)malloc(sizeof(str))))
+		error("error : malloc str");
+	while ((ret = get_next_line(fd, &line)) > 0)
 	{
-		ft_dstrcpy(str, i, line);
+		str = ft_dstrcpy(str, i, line);
 		i++;
 	}
-	if (!(fig = ((t_fig **)malloc(sizeof(fig) * (count(str) + 1)))))
+	init->nbline = i;
+	if (!(fig = ((t_fig **)malloc(sizeof(fig) * (count(str, init->nbline) + 1)))))
 		error("error : malloc fig");
-	init->height *= 1;
-	edit_fig(fig, str);
+	edit_fig(init, fig, str);
 	return (fig);
 }
