@@ -6,7 +6,7 @@
 /*   By: amoinier <amoinier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/22 14:40:48 by amoinier          #+#    #+#             */
-/*   Updated: 2016/03/23 18:15:29 by amoinier         ###   ########.fr       */
+/*   Updated: 2016/03/23 18:20:33 by amoinier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,12 @@ t_fig		*init_fig(void)
 
 	if (!(fig = (t_fig *)malloc(sizeof(*fig))))
 		error("error malloc elem fig");
+	fig->obj = NULL;
+	fig->ray = 0;
+	fig->posx = 0;
+	fig->posy = 0;
+	fig->posz = 0;
+	fig->color = 0;
 	return (fig);
 }
 
