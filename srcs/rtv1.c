@@ -6,7 +6,7 @@
 /*   By: amoinier <amoinier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/05 19:09:53 by amoinier          #+#    #+#             */
-/*   Updated: 2016/03/21 16:56:49 by amoinier         ###   ########.fr       */
+/*   Updated: 2016/03/23 18:06:47 by amoinier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ static	t_img	*ft_init_img(t_env *init, int w, int h)
 
 static	void	ft_initenv(t_env *init, char *av)
 {
-	init->width = 1280;
-	init->height = 800;
+	init->width = 0;
+	init->height = 0;
 	init->name = av;
 	init->nbline = 0;
 	init->fig = ft_createstruct(init, av);
@@ -39,12 +39,12 @@ void			mlx_var(t_env *init, char *av)
 {
 	init->mlx = mlx_init();
 	ft_initenv(init, av);
-	init->win = mlx_new_window(init->mlx, 1280, 800,
+	init->win = mlx_new_window(init->mlx, init->width, init->height,
 	"WOLF3D");
 	ft_initenv(init, av);
 	init->img = ft_init_img(init, init->width, init->height);
 	//mlx_hook(init->win, 6, 0, mouse_hook, init);
-	//smlx_hook(init->win, 2, 0, key_hook, init);
+	mlx_hook(init->win, 2, 0, key_hook, init);
 	//mlx_expose_hook(init->win, expose_hook, init);
 	//mlx_loop_hook(init->mlx, loop_hook, init);
 	mlx_loop(init->mlx);
@@ -56,8 +56,6 @@ int				main(int ac, char **av)
 {
 	t_env	*init;
 
-
-	//printf("%f\n", ft_atof("1.69"));
 	if (ac == 2)
 	{
 		if (!(init = (t_env *)malloc(sizeof(*init))))

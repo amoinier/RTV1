@@ -6,7 +6,7 @@
 /*   By: amoinier <amoinier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/05 19:10:31 by amoinier          #+#    #+#             */
-/*   Updated: 2016/03/21 16:54:00 by amoinier         ###   ########.fr       */
+/*   Updated: 2016/03/23 18:12:58 by amoinier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,17 @@
 
 # include "libft.h"
 # include <mlx.h>
+# include <math.h>
 
 # define RAD 0.0174532925
 # define PI 3.14159265359
 
 typedef struct	s_fig
 {
-	char		obj;
-	float		size;
+	char		*obj;
+	float		posx;
+	float		posy;
+	float		posz;
 	float		ray;
 	int			color;
 }				t_fig;

@@ -1,11 +1,16 @@
 ##SCENE
 name sphere1;
-camera 0.0,0.0,0.0;
-sizefen 1080,720;
+camx 0.0;
+camy 0.0;
+camz 0.0;
+fenx 1920;
+feny 1080;
 
 ##OBJECTS
 object sphere;
-origine 0.0,0.0,0.0;
+posx 0.0;
+posy 0.0;
+posz 0.0;
 ray 50.0;
 color 0xfffff;
 ##END

@@ -6,7 +6,7 @@
 /*   By: amoinier <amoinier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/23 18:09:46 by amoinier          #+#    #+#             */
-/*   Updated: 2016/03/21 16:53:33 by amoinier         ###   ########.fr       */
+/*   Updated: 2016/03/23 16:42:27 by amoinier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,12 @@ float	ft_atof(char *s)
 	int	k;
 	int	neg;
 	float	result;
+	float	dec;
 
 	i = 0;
 	k = 0;
 	result = 0;
+	dec = 0;
 	neg = 1;
 	while (s[i] == 32 || s[i] == '\n' || s[i] == '\r' ||
 	s[i] == '\v' || s[i] == '\t' || s[i] == '\f')
@@ -40,15 +42,16 @@ float	ft_atof(char *s)
 	}
 	if (s[i] == '.')
 	{
+		i++;
 		while (s[i + k])
 		{
 			if (s[i + k] >= '0' && s[i + k] <= '9')
-				result = result * 10 + s[i + k] - '0';
+				dec = dec * 10 + s[i + k] - '0';
 			else
 				break ;
 			k++;
 		}
-		result = result / (ft_power(10, k));
+		result = result + (dec / (pow(10, k)));
 	}
 	result = result * neg;
 	return (result);
