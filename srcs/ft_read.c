@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_read.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amoinier <amoinier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Alex <Alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/22 14:40:48 by amoinier          #+#    #+#             */
-/*   Updated: 2016/03/23 18:20:33 by amoinier         ###   ########.fr       */
+/*   Updated: 2016/03/28 09:55:57 by Alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,18 +92,18 @@ void		edit_fig(t_env *init, t_fig **fig, char	**str)
 				init->width = ft_atoi(&str[j][ft_search(str[j], "fenx")]);
 			else if (ft_strstr(str[j], "feny"))
 				init->height = ft_atoi(&str[j][ft_search(str[j], "feny")]);
-			else if (!init->fig[i]->obj && ft_strstr(str[j], "object"))
-				init->fig[i]->obj = ft_strdup(&str[j][ft_search(str[j], "object")]);
-			else if (!init->fig[i]->posx && ft_strstr(str[j], "posx"))
-				init->fig[i]->posx = ft_atof(&str[j][ft_search(str[j], "posx")]);
-			else if (!init->fig[i]->posy && ft_strstr(str[j], "posy"))
-				init->fig[i]->posy = ft_atof(&str[j][ft_search(str[j], "posy")]);
-			else if (!init->fig[i]->posz && ft_strstr(str[j], "posz"))
-				init->fig[i]->posz = ft_atof(&str[j][ft_search(str[j], "posz")]);
-			else if (!init->fig[i]->ray && ft_strstr(str[j], "ray"))
-				init->fig[i]->ray = ft_atof(&str[j][ft_search(str[j], "ray")]);
-			else if (!init->fig[i]->obj && ft_strstr(str[j], "color"))
-				init->fig[i]->color = ft_atoi(&str[j][ft_search(str[j], "color")]);
+			else if (!fig[i]->obj && ft_strstr(str[j], "object"))
+				fig[i]->obj = ft_strdup(&str[j][ft_search(str[j], "object")]);
+			else if (!fig[i]->posx && ft_strstr(str[j], "posx"))
+				fig[i]->posx = ft_atof(&str[j][ft_search(str[j], "posx")]);
+			else if (!fig[i]->posy && ft_strstr(str[j], "posy"))
+				fig[i]->posy = ft_atof(&str[j][ft_search(str[j], "posy")]);
+			else if (!fig[i]->posz && ft_strstr(str[j], "posz"))
+				fig[i]->posz = ft_atof(&str[j][ft_search(str[j], "posz")]);
+			else if (!fig[i]->ray && ft_strstr(str[j], "ray"))
+				fig[i]->ray = ft_atof(&str[j][ft_search(str[j], "ray")]);
+			else if (!fig[i]->obj && ft_strstr(str[j], "color"))
+				fig[i]->color = ft_atoi(&str[j][ft_search(str[j], "color")]);
 			j++;
 		}
 		i++;

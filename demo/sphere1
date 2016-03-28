@@ -3,8 +3,8 @@ name sphere1;
 camx 0.0;
 camy 0.0;
 camz 0.0;
-fenx 1920;
-feny 1080;
+fenx 800;
+feny 600;
 
 ##OBJECTS
 object sphere;
