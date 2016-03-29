@@ -13,4 +13,11 @@ posy 0.0;
 posz 0.0;
 ray 50.0;
 color 0xfffff;
+
+object plan;
+posx 33.0;
+posy 33.0;
+posz 33.0;
+ray 42.0;
+color 0xff0000;
 ##END

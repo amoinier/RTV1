@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_read.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Alex <Alex@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: amoinier <amoinier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/22 14:40:48 by amoinier          #+#    #+#             */
-/*   Updated: 2016/03/28 09:55:57 by Alex             ###   ########.fr       */
+/*   Updated: 2016/03/29 16:21:46 by amoinier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,17 +68,39 @@ t_fig		*init_fig(void)
 	return (fig);
 }
 
+void		add_object(t_env *init, t_fig *fig, char **str, int *j)
+{
+	while (*j < init->nbline && fig->color == 0)
+	{
+		if (!fig->obj && ft_strstr(str[*j], "object"))
+			fig->obj = ft_strdup(&str[*j][ft_search(str[*j], "object")]);
+		else if (!fig->posx && ft_strstr(str[*j], "posx"))
+			fig->posx = ft_atof(&str[*j][ft_search(str[*j], "posx")]);
+		else if (!fig->posy && ft_strstr(str[*j], "posy"))
+			fig->posy = ft_atof(&str[*j][ft_search(str[*j], "posy")]);
+		else if (!fig->posz && ft_strstr(str[*j], "posz"))
+			fig->posz = ft_atof(&str[*j][ft_search(str[*j], "posz")]);
+		else if (!fig->ray && ft_strstr(str[*j], "ray"))
+			fig->ray = ft_atof(&str[*j][ft_search(str[*j], "ray")]);
+		else if (!fig->obj && ft_strstr(str[*j], "color"))
+		{
+			fig->color = ft_atoi(&str[*j][ft_search(str[*j], "color")]);
+		}
+		*j += 1;
+	}
+}
+
 void		edit_fig(t_env *init, t_fig **fig, char	**str)
 {
 	int	i;
 	int	j;
 
 	i = 0;
+	j = 0;
 	while (i < count(str, init->nbline))
 	{
 		fig[i] = init_fig();
-		j = 0;
-		while (j < init->nbline)
+		while (j < init->nbline && init->height == 0)
 		{
 			if (!init->name && ft_strstr(str[j], "name"))
 				init->name = ft_strdup(&str[j][ft_search(str[j], "name")]);
@@ -92,20 +114,9 @@ void		edit_fig(t_env *init, t_fig **fig, char	**str)
 				init->width = ft_atoi(&str[j][ft_search(str[j], "fenx")]);
 			else if (ft_strstr(str[j], "feny"))
 				init->height = ft_atoi(&str[j][ft_search(str[j], "feny")]);
-			else if (!fig[i]->obj && ft_strstr(str[j], "object"))
-				fig[i]->obj = ft_strdup(&str[j][ft_search(str[j], "object")]);
-			else if (!fig[i]->posx && ft_strstr(str[j], "posx"))
-				fig[i]->posx = ft_atof(&str[j][ft_search(str[j], "posx")]);
-			else if (!fig[i]->posy && ft_strstr(str[j], "posy"))
-				fig[i]->posy = ft_atof(&str[j][ft_search(str[j], "posy")]);
-			else if (!fig[i]->posz && ft_strstr(str[j], "posz"))
-				fig[i]->posz = ft_atof(&str[j][ft_search(str[j], "posz")]);
-			else if (!fig[i]->ray && ft_strstr(str[j], "ray"))
-				fig[i]->ray = ft_atof(&str[j][ft_search(str[j], "ray")]);
-			else if (!fig[i]->obj && ft_strstr(str[j], "color"))
-				fig[i]->color = ft_atoi(&str[j][ft_search(str[j], "color")]);
 			j++;
 		}
+		add_object(init, fig[i], str, &j);
 		i++;
 	}
 }
@@ -135,6 +146,6 @@ t_fig	**ft_createstruct(t_env *init, char *av)
 	if (!(fig = ((t_fig **)malloc(sizeof(fig) * (count(str, init->nbline) + 1)))))
 		error("error : malloc fig");
 	edit_fig(init, fig, str);
-	printf("%f\n", init->camy);
+	printf("%s\n", fig[1]->obj);
 	return (fig);
 }
