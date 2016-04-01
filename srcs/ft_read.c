@@ -6,7 +6,7 @@
 /*   By: amoinier <amoinier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/22 14:40:48 by amoinier          #+#    #+#             */
-/*   Updated: 2016/03/29 16:21:46 by amoinier         ###   ########.fr       */
+/*   Updated: 2016/04/01 18:21:15 by amoinier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,13 @@ t_fig		*init_fig(void)
 	fig->posx = 0;
 	fig->posy = 0;
 	fig->posz = 0;
-	fig->color = 0;
+	fig->color = -1;
 	return (fig);
 }
 
 void		add_object(t_env *init, t_fig *fig, char **str, int *j)
 {
-	while (*j < init->nbline && fig->color == 0)
+	while (*j < init->nbline && fig->color == -1)
 	{
 		if (!fig->obj && ft_strstr(str[*j], "object"))
 			fig->obj = ft_strdup(&str[*j][ft_search(str[*j], "object")]);
@@ -82,10 +82,8 @@ void		add_object(t_env *init, t_fig *fig, char **str, int *j)
 			fig->posz = ft_atof(&str[*j][ft_search(str[*j], "posz")]);
 		else if (!fig->ray && ft_strstr(str[*j], "ray"))
 			fig->ray = ft_atof(&str[*j][ft_search(str[*j], "ray")]);
-		else if (!fig->obj && ft_strstr(str[*j], "color"))
-		{
+		else if (fig->color < 0 && ft_strstr(str[*j], "color"))
 			fig->color = ft_atoi(&str[*j][ft_search(str[*j], "color")]);
-		}
 		*j += 1;
 	}
 }
@@ -146,6 +144,6 @@ t_fig	**ft_createstruct(t_env *init, char *av)
 	if (!(fig = ((t_fig **)malloc(sizeof(fig) * (count(str, init->nbline) + 1)))))
 		error("error : malloc fig");
 	edit_fig(init, fig, str);
-	printf("%s\n", fig[1]->obj);
+	ft_putnbr(fig[1]->posz);
 	return (fig);
 }

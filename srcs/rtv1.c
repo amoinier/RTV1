@@ -6,7 +6,7 @@
 /*   By: amoinier <amoinier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/05 19:09:53 by amoinier          #+#    #+#             */
-/*   Updated: 2016/03/29 16:16:35 by amoinier         ###   ########.fr       */
+/*   Updated: 2016/04/01 17:02:00 by amoinier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void			mlx_var(t_env *init, char *av)
 	init->mlx = mlx_init();
 	ft_initenv(init, av);
 	init->win = mlx_new_window(init->mlx, init->width, init->height,
-	"WOLF3D");
+	"RTV1");
 	init->img = ft_init_img(init, init->width, init->height);
 	//mlx_hook(init->win, 6, 0, mouse_hook, init);
 	mlx_hook(init->win, 2, 0, key_hook, init);
